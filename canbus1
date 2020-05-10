@@ -1,0 +1,47 @@
+static void MX_CAN_Init(void)
+{
+
+  hcan.Instance = CAN;							 		/*!< Register base address */
+
+  hcan.Init.Mode = CAN_MODE_NORMAL;				 		/*!< Specifies the CAN operating mode.
+                                        		 	 	 	 for testing: LOOPBACK,SILENT OR SILENT_LOOPBACK  */
+
+  hcan.Init.AutoBusOff = ENABLE;				 		/*!< Enable or disable the automatic bus-off management.
+                                        		 	 	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  hcan.Init.AutoRetransmission = ENABLE;		 		/*!< Enable or disable the non-automatic retransmission mode.
+                                        		 	 	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  hcan.Init.AutoWakeUp = ENABLE;           	 		    /*!< Enable or disable the automatic wake-up mode.
+                                        		     	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  hcan.Init.ReceiveFifoLocked = DISABLE;    	 		/*!< Enable or disable the Receive FIFO Locked mode.
+                                                     	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  hcan.Init.TimeTriggeredMode = DISABLE;		 		/*!< Enable or disable the time triggered communication mode.
+                                        		     	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  hcan.Init.TransmitFifoPriority = DISABLE; 	 		/*!< Enable or disable the transmit FIFO priority.
+                                        		 	 	 	 This parameter can be set to ENABLE or DISABLE. */
+
+  //Settings related to CAN bit timings.
+
+  hcan.Init.Prescaler = 1;					     		/*!< Specifies the length of a time quantum.
+                                        		     	 	 This parameter must be a number between Min_Data = 1 and Max_Data = 1024. */
+
+  hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;		 		/*!< Specifies the maximum number of time quanta the CAN hardware
+                                        			 	 	 is allowed to lengthen or shorten a bit to perform resynchronization.
+                                        			 	 	 This parameter can be a value of @ref CAN_synchronisation_jump_width */
+
+  hcan.Init.TimeSeg1 = CAN_BS1_5TQ;			 		     /*!< Specifies the number of time quanta in Bit Segment 1.
+                                        			 	 	 This parameter can be a value of @ref CAN_time_quantum_in_bit_segment_1 */
+
+  hcan.Init.TimeSeg2 = CAN_BS2_2TQ;				 		/*!< Specifies the number of time quanta in Bit Segment 2.
+                                        			 	 	 This parameter can be a value of @ref CAN_time_quantum_in_bit_segment_2 */
+  //Handling errors, built in function
+  if (HAL_CAN_Init(&hcan) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
